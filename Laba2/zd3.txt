@@ -1,0 +1,17 @@
+1.По этому запросу вы можете найти сайты на русском языке. Указать предпочтительные языки
+2. для результатов поиска можно в разделе Настройки.
+3.Abstract classes are similar to interfaces. You cannot instantiate them,
+4. and they may contain a mix of methods declared with or without an implementation. However,
+5. with abstract classes, you can declare fields that are not static and final,
+6. and define public, protected, and private concrete methods.
+7.
+8.Abstract Methods and Classes (The Java™ Tutorials ...https://docs.oracle.com
+9. › javase › tutorial › java › IandI
+10.О выделенных описаниях
+11.•
+12.Оставить отзыв
+13.Java Abstraction - W3Schoolshttps://www.w3schools.com › ...
+14.Перевести эту страницу
+15.Abstract class: is a restricted class that cannot 
+16.be used to create objects (to access it, it must be inherited from another class). · Abstract method: can only ...
+17.t class Car { private String model; private String color; private int maxSpeed;
