@@ -1,103 +1,106 @@
 package LabaStack;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 import java.util.Scanner;
-import java.util.Stack;
 
 public class Main {
-    public static void Splosh(){
-        Stack<Integer> stack = new Stack<Integer>();
-        Scanner sc = new Scanner(System.in);
-        int answer = 0;
-        while(answer != 5){
-            System.out.println("""
-                    Выберете пункт меню:
-                    1. Добавить элемент
-                    2. Удалить элемент
-                    3. Очистить
-                    4. Посмотреть стек
-                    5. Назад
-                    """);
-            System.out.print("Введите номер команды: ");answer = sc.nextInt();
-            if(answer == 1){
-                System.out.println("Введите элемент: "); int a = sc.nextInt();
-                stack.push(a);
-                System.out.println("\nЭлемент добавлен!");
-            }   else if(answer == 2)    {
-                stack.pop();
-                System.out.println("Элемент удалён!\n");
-            }   else if(answer == 3)    {
-                stack.clear();
-            }   else if(answer == 4)    {
-                System.out.println("\nВаш стек: " + stack + "\n");
-            }   else if(answer == 5)    {
-                break;
-            }   else
-                System.out.println("Такого пункта нет!");
-        }
-    }
-
-    public static void Tsepn(){
-        Stack<Integer> stack = new Stack<>();
-        List<Integer> list = new ArrayList<>();
-        Scanner sc = new Scanner(System.in);
-        int a = 0;
-        int y = 0;
-        int answer = 0;
-        while(answer != 5){
-            System.out.println("""
-                    Выберете пункт меню:
-                    1. Добавить элемент
-                    2. Удалить элемент
-                    3. Посмотреть стек
-                    4. Назад
-                    """);
-            System.out.print("Введите номер команды: ");answer = sc.nextInt();
-            if(answer == 1) {
-                System.out.println("Введите элемент: ");
-                y++;
-                a = sc.nextInt();
-                list.add(a);
-
-                System.out.println("\nЭлемент добавлен!");
-            }   else if(answer == 2)    {
-                stack.addAll(list);
-                stack.pop();
-                list.clear();
-                System.out.println("Элемент удалён!\n");
-            }   else if(answer == 3)    {
-                stack.addAll(list);
-                list.clear();
-                System.out.println("\nВаш стек: " + stack + "\n");
-            }   else if(answer == 4)    {
-                break;
-            }   else
-                System.out.println("Такого пункта нет!");
-        }
-    }
-
-    public static void start(){
-        Scanner sc = new Scanner(System.in);
-        Stack<Integer> stack = new Stack<>();
-        while(true){
-            System.out.println("\nВыберете способ представления стека:\n1. Сплошной \n2. Цепной\n3. Выйти");
-            int answer;
-            System.out.print("> ");answer = sc.nextInt();
-            if(answer == 1){
-                Stack<Integer> str = new Stack<>();
-                Splosh();
-            }   else if(answer == 2)   {
-                Stack<Integer> stl = new Stack<>();
-                Tsepn();
-            }   else if(answer == 3){
-                break;
-            }   else
-                System.out.println("Такого пункта нет!");
-        }
-    }
-
     public static void main(String[] args) {
-        start();
+        try {
+            Menu.MainMenu();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static class Menu{
+        private static Stack stack;
+        private static SStack sstack;
+        public static void MainMenu() throws IOException {
+            System.out.println("""
+                    Выберите вид стека:
+                    1) Цепной стек
+                    2) Сплошной стек""");
+            System.out.print("> ");
+            int choice = (char)System.in.read();
+            if(choice == '1'){
+                stack = new Stack();
+                Stack();
+            }
+            if(choice == '2'){
+                System.out.print("Введите кол-во элементов стека: ");
+                System.in.skip(10);
+                choice = System.in.read();
+                sstack = new SStack(choice);
+                SStack();
+            }
+        }
+        private static void Stack() throws IOException {
+            System.out.println("""
+                    Введите команду:\s
+                    1) Добавить элемент
+                    2) Достать последний
+                    3) Показать стек
+                    4) Проверить на пустоту
+                    5) Назад""");
+            System.out.print("> ");
+            System.in.skip(2);
+            int choice = (char) System.in.read();
+            switch (choice) {
+                case ('1') -> {
+                    System.out.print("Введите элемент стека: ");
+                    Scanner scanner = new Scanner(System.in);
+                    int num = scanner.nextInt();
+                    stack.push(num);
+                    Stack();
+                }
+                case ('2') -> {
+                    System.out.println("Достали элемент: " + stack.pop());
+                    Stack();
+                }
+                case ('3') -> {
+                    System.out.println("Стек: ");
+                    stack.output_stack();
+                    Stack();
+                }
+                case ('4') -> {
+                    System.out.println("Стек пуст: " + stack.isEmpty());
+                    Stack();
+                }
+            }
+        }
+
+        private static void SStack() throws IOException {
+            System.out.println("""
+                    Введите команду:\s
+                    1)Добавить элемент
+                    2)Достать последний
+                    3)Показать стек
+                    4)Проверить на пустоту""");
+            System.out.print("> ");
+            System.in.skip(2);
+            char choice = (char) System.in.read();
+            switch (choice) {
+                case ('1') -> {
+                    System.out.print("Введите элемент стека: ");
+                    Scanner scanner = new Scanner(System.in);
+                    int num = scanner.nextInt();
+                    sstack.push(num);
+                    SStack();
+                }
+                case ('2') -> {
+                    System.out.println("Достали элемент: " + sstack.pop());
+                    SStack();
+                }
+                case ('3') -> {
+                    System.out.print("Стек: ");
+                    sstack.output_stack();
+                    System.out.println();
+                    SStack();
+                }
+                case ('4') -> {
+                    System.out.println("Стек пуст: " + sstack.isEmpty());
+                    SStack();
+                }
+            }
+        }
     }
 }
